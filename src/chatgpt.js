@@ -5,7 +5,7 @@ const openAi = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-async function chatgpt(text, fromId) {
+async function chatgpt(text, fromId, stream) {
   const messages = [
     {
       role: 'user',
@@ -14,12 +14,14 @@ async function chatgpt(text, fromId) {
         text,
     },
   ]
+
   try {
-    const completion = await openAi.chat.completions.create({
+    const response = await openAi.chat.completions.create({
       messages: isLove(fromId) ? messagesLove : messages,
       model: 'gpt-3.5-turbo',
+      stream,
     })
-    return completion.choices[0].message.content
+    return response
   } catch (error) {
     console.log(error)
     return 'Произошла ошибка'
