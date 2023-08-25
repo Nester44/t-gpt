@@ -3,7 +3,7 @@ import './config.js'
 
 import { Telegraf } from 'telegraf'
 import chatGPT from './chatgpt.js'
-import { commandDescription, isAllowed } from './constants.js'
+import { commandDescription, isAllowed, isLove } from './constants.js'
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_ID)
 
@@ -58,7 +58,7 @@ const botInterface = async (ctx) => {
   }
 
   try {
-    const response = await chatGPT(text, ctx.message.from.id, !isGroup)
+    const response = await chatGPT(text, isLove(ctx.message.from.id), !isGroup)
 
     if (isGroup) {
       sendMessage(response.choices[0].message.content)

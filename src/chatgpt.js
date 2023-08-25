@@ -5,7 +5,7 @@ const openAi = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-async function chatgpt(text, fromId, stream) {
+async function chatgpt(text, message, stream) {
   const messages = [
     {
       role: 'user',
@@ -15,7 +15,7 @@ async function chatgpt(text, fromId, stream) {
     },
   ]
   const response = await openAi.chat.completions.create({
-    messages: isLove(fromId) ? messagesLove : messages,
+    messages: isLove ? messagesLove : messages,
     model: 'gpt-3.5-turbo',
     stream,
   })
