@@ -57,12 +57,17 @@ const botInterface = async (ctx) => {
     }
   }
 
-  const response = await chatGPT(text, ctx.message.from.id, !isGroup)
+  try {
+    const response = await chatGPT(text, ctx.message.from.id, !isGroup)
 
-  if (isGroup) {
-    sendMessage(response.choices[0].message.content)
-  } else {
-    streamMessage(response)
+    if (isGroup) {
+      sendMessage(response.choices[0].message.content)
+    } else {
+      streamMessage(response)
+    }
+  } catch (error) {
+    ctx.reply('Произошла ошибка')
+    console.error(error)
   }
 }
 

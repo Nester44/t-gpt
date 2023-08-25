@@ -14,18 +14,12 @@ async function chatgpt(text, fromId, stream) {
         text,
     },
   ]
-
-  try {
-    const response = await openAi.chat.completions.create({
-      messages: isLove(fromId) ? messagesLove : messages,
-      model: 'gpt-3.5-turbo',
-      stream,
-    })
-    return response
-  } catch (error) {
-    console.log(error)
-    return 'Произошла ошибка'
-  }
+  const response = await openAi.chat.completions.create({
+    messages: isLove(fromId) ? messagesLove : messages,
+    model: 'gpt-3.5-turbo',
+    stream,
+  })
+  return response
 }
 
 export default chatgpt
