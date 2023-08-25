@@ -1,6 +1,7 @@
+import './config.js'
+
 import { Telegraf } from 'telegraf'
 import chatGPT from './chatgpt.js'
-import './config.js'
 import { isAllowed } from './constants.js'
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_ID)
