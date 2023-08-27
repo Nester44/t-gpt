@@ -22,6 +22,7 @@ class GptController {
   }
 
   async reply(ctx) {
+    if (ctx.updateType !== 'message') return
     if (!isReplyToMyMessage(ctx)) return
     const replyToMessageId = ctx.message.reply_to_message.message_id
     messageStorage.addMessage(
