@@ -6,7 +6,7 @@ const defaultDialog = [
   },
 ]
 
-export const getDefaultDialog = (text) =>
+export const createDefaultDialog = (text) =>
   defaultDialog.concat([
     {
       role: 'user',
