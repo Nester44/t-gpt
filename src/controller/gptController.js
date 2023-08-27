@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import gptService from '../service/gptService.js'
 import messageStorage from '../service/messageStorage.js'
+import { isReplyToMyMessage } from '../utils.js'
 
 class GptController {
   async query(ctx) {
@@ -21,6 +22,7 @@ class GptController {
   }
 
   async reply(ctx) {
+    if (!isReplyToMyMessage(ctx)) return
     const replyToMessageId = ctx.message.reply_to_message.message_id
     messageStorage.addMessage(
       ctx.message.message_id,
