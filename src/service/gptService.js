@@ -6,13 +6,13 @@ const openAi = new OpenAI({
 })
 
 class GptService {
-  async query(input, stream = false) {
+  async query(input) {
     const response = await openAi.chat.completions.create({
       messages: getDefaultDialog(input),
       model: 'gpt-3.5-turbo',
-      stream,
     })
-    return response
+    const text = response.choices[0].message.content
+    return text
   }
 }
 
