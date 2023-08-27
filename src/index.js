@@ -1,23 +1,14 @@
-import './config.js'
+import { createServer } from 'http'
+import bot from './bot.js'
 
-import { Telegraf } from 'telegraf'
-import commandDescription from './constants/commands.js'
-import gptController from './controller/gptController.js'
-import allowMiddleware from './middleware/allowMiddleware.js'
-import errorHandler from './middleware/errorHandler.js'
-import extractInput from './middleware/extractInputMiddleware.js'
-import loggerMiddleware from './middleware/loggerMiddleware.js'
+const PORT = process.env.PORT || 3000
 
-const bot = new Telegraf(process.env.TELEGRAM_BOT_ID)
-
-bot.command(allowMiddleware)
-bot.command(extractInput)
-bot.command(loggerMiddleware)
-
-bot.command('sho', gptController.query)
-bot.command('stream', gptController.stream)
-
-bot.catch(errorHandler)
-
-bot.telegram.setMyCommands(commandDescription)
-bot.launch()
+if (process.env.NODE_ENV === 'production') {
+  createServer(
+    await bot.createWebhook({ domain: process.env.WEBHOOK_DOMAIN }),
+  ).listen(PORT, () => {
+    console.log(`Bot is running on production mode at port ${PORT}`)
+  })
+} else {
+  bot.launch()
+}
