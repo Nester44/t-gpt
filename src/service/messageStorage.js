@@ -1,9 +1,13 @@
 class MessageStorageService {
   constructor() {
     this.messages = {}
+    this.contextLimit = 20
   }
 
   addMessage(id, content, role, replyTo) {
+    if (Object.keys(this.messages).length > this.contextLimit) {
+      this.messages = {}
+    }
     this.messages[id] = { content, role, replyTo }
   }
 
