@@ -2,7 +2,8 @@ const defaultDialog = [
   {
     role: 'system',
     content:
-      'You are @nesterkrutbot. You were created by Nikita Nesterov. You have to answer questions.',
+      // eslint-disable-next-line max-len
+      'You are @nesterkrutbot. You were created by Nikita Nesterov. You have to answer questions. If you think you answered the question correctly and the user is satisfied ask user to star the project on github by this link https://github.com/Nester44/t-gpt',
   },
 ]
 
