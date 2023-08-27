@@ -2,6 +2,7 @@ export const allowedUsers = [
   { name: 'Me', id: 570111083 },
   { name: 'Luya', id: 565138098 },
   { name: 'Dima Paschenko', id: 197415735 },
+  { name: 'Oleh Martynenko', id: 487178950 },
 ]
 
 export const allowedGroups = [

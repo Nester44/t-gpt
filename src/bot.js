@@ -15,7 +15,7 @@ bot.command(extractInput)
 bot.command(loggerMiddleware)
 
 bot.command('sho', gptController.query)
-bot.command('stream', gptController.stream)
+// bot.command('stream', gptController.stream)
 
 bot.catch(errorHandler)
 
