@@ -9,12 +9,9 @@
     "openai": "^4.2.0",
     "telegraf": "^4.12.2"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "node --watch src/index.js"
   },
   "keywords": [
     "telegram",
@@ -22,6 +19,6 @@
     "openai",
     "gpt"
   ],
-  "author": "Your Name",
+  "author": "Nesterov Nikita",
   "license": "MIT"
 }
