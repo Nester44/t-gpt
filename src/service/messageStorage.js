@@ -3,7 +3,7 @@ import { initialMessage } from '../dialogs/default.js'
 class MessageStorageService {
   constructor() {
     this.messages = { initialMessage }
-    this.contextLimit = 20
+    this.contextLimit = Infinity
   }
 
   addMessage(id, content, role, replyTo = 'initialMessage') {
