@@ -7,7 +7,8 @@ class GptController {
   async query(ctx) {
     const input = ctx.state.input
     messageStorage.addMessage(ctx.message.message_id, input, 'user')
-    const response = await gptService.query(input)
+    const dialog = messageStorage.getDialog(ctx.message.message_id)
+    const response = await gptService.query(dialog)
 
     const sentMessage = await ctx.reply(response, {
       reply_to_message_id: ctx.message.message_id,
@@ -36,7 +37,7 @@ class GptController {
       replyToMessageId,
     )
     const dialog = messageStorage.getDialog(ctx.message.message_id)
-    const response = await gptService.query('', dialog)
+    const response = await gptService.query(dialog)
     const sentMessage = await ctx.reply(response, {
       reply_to_message_id: ctx.message.message_id,
     })

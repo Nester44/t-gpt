@@ -1,10 +1,12 @@
+import { initialMessage } from '../dialogs/default.js'
+
 class MessageStorageService {
   constructor() {
-    this.messages = {}
+    this.messages = { initialMessage }
     this.contextLimit = 20
   }
 
-  addMessage(id, content, role, replyTo) {
+  addMessage(id, content, role, replyTo = 'initialMessage') {
     if (Object.keys(this.messages).length > this.contextLimit) {
       this.messages = {}
     }
