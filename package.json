@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "dependencies": {
+    "@google-cloud/text-to-speech": "^5.0.0",
     "dotenv": "^10.0.0",
     "node-schedule": "^2.1.1",
     "openai": "^4.2.0",
