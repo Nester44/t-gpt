@@ -3,6 +3,7 @@ export const allowedUsers = [
   { name: 'Luya', id: 565138098 },
   { name: 'Dima Paschenko', id: 197415735 },
   { name: 'Oleh Martynenko', id: 487178950 },
+  { name: 'gustav', id: 973515559 },
 ]
 
 export const allowedGroups = [
