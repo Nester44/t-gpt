@@ -7,6 +7,10 @@ const commandDescription = [
     command: 'shum',
     description: 'Ехо голосовое',
   },
+  {
+    command: 'penzlyk',
+    description: 'Намалюваті малюнак'
+  }
 ]
 
 export const commands = commandDescription.map((c) => c.command)

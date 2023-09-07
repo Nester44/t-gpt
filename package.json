@@ -9,6 +9,7 @@
     "dotenv": "^10.0.0",
     "node-schedule": "^2.1.1",
     "openai": "^4.2.0",
+    "replicate": "^0.17.0",
     "telegraf": "^4.12.2"
   },
   "devDependencies": {
