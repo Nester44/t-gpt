@@ -2,7 +2,7 @@
 import gptService from '../service/gptService.js'
 
 const penzlyk = async (ctx) => {
-  const input = ctx.message.text.replace('/penzlyk', '').trim()
+  const input = ctx.message.text.split(' ').slice(1).join(' ').trim()
 
   if (!input)
     ctx.reply('А шож малювати', {
