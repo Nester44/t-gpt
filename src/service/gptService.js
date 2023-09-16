@@ -13,6 +13,9 @@ class GptService {
     const response = await openai.chat.completions.create({
       messages,
       model,
+      temperature: 1.2,
+      // eslint-disable-next-line camelcase
+      max_tokens: 300,
     })
     const text = response.choices[0].message.content
     return text
