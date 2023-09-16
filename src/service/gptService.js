@@ -17,15 +17,15 @@ class GptService {
     const text = response.choices[0].message.content
     return text
   }
-  async generateImage (prompt) {
+  async generateImage(prompt) {
     const response = await openai.images.generate({
       prompt,
       n: 1,
-      size: "1024x1024",
-    });
+      size: '1024x1024',
+    })
 
-    return response.data[0].url;
-} 
+    return response.data[0].url
+  }
 }
 
 export default new GptService()
