@@ -1,5 +1,5 @@
-import synthesizeVoice from "../service/textToSpeechService.js"
 import { Input } from 'telegraf'
+import synthesizeVoice from '../service/textToSpeechService.js'
 
 const shum = async (ctx) => {
   const input = ctx.message.text.slice(5)

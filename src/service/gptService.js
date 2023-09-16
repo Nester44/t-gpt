@@ -4,11 +4,15 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
+const defaultModel = 'gpt-3.5-turbo-0613'
+
+const model = process.env.OPENAI_MODEL || defaultModel
+
 class GptService {
   async query(messages) {
     const response = await openai.chat.completions.create({
       messages,
-      model: 'gpt-3.5-turbo',
+      model,
     })
     const text = response.choices[0].message.content
     return text

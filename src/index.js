@@ -11,4 +11,5 @@ if (process.env.NODE_ENV === 'production') {
   })
 } else {
   bot.launch()
+  console.log('Bot is running on development mode')
 }

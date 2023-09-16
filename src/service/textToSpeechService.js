@@ -13,11 +13,11 @@ async function synthesizeVoice(text) {
     // Select the language and SSML voice gender (optional)
     voice: {
       languageCode: 'ru-RU',
-      ssmlGender: 'FEMALE',
-      name: 'ru-RU-Wavenet-C',
+      ssmlGender: 'MALE',
+      name: 'ru-RU-Wavenet-D',
     },
     // select the type of audio encoding
-    audioConfig: { audioEncoding: 'MP3', pitch: -2 },
+    audioConfig: { audioEncoding: 'MP3', pitch: -4, speed: 1.2 },
   }
 
   // Performs the text-to-speech request

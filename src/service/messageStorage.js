@@ -3,19 +3,19 @@ import { initialMessage } from '../dialogs/default.js'
 class MessageStorageService {
   constructor() {
     this.messages = { initialMessage }
-    this.contextLimit = Infinity
+    this.contextLimit = process.env.CONTEXT_LIMIT || 10
   }
 
   addMessage(id, content, role, replyTo = 'initialMessage') {
     if (Object.keys(this.messages).length > this.contextLimit) {
-      this.messages = {}
+      this.messages = { initialMessage }
     }
     this.messages[id] = { content, role, replyTo }
   }
 
   getDialog(id) {
     const message = this.messages[id]
-    if (!message) return []
+    if (!message) return [initialMessage]
     const { content, role } = message
     const dialog = [{ content, role }]
 
