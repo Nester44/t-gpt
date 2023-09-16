@@ -21,7 +21,7 @@ async function synthesizeVoice(text) {
   }
 
   // Performs the text-to-speech request
-  const [response] = await client.synthesizeSpeech(request)
+  const [response] = client.synthesizeSpeech(request)
   return response.audioContent
 }
 
