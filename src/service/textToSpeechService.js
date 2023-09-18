@@ -1,9 +1,19 @@
+/* eslint-disable camelcase */
 // Imports the Google Cloud client library
 import textToSpeech from '@google-cloud/text-to-speech'
 import { franc } from 'franc'
 
 // Creates a client
-const client = new textToSpeech.TextToSpeechClient()
+const client = new textToSpeech.TextToSpeechClient({
+	projectId: process.env.GOOGLE_PROJECT_ID,
+	credentials: {
+		client_email: process.env.GOOGLE_CLIENT_EMAIL,
+		private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+		type: 'service_account',
+		universe_domain: 'googleapis.com',
+		client_id: process.env.GOOGLE_CLIENT_ID,
+	},
+})
 
 const mapLanguageToConfig = (language) => {
 	switch (language) {
