@@ -1,14 +1,14 @@
 export const allowedUsers = [
-  { name: 'Me', id: 570111083 },
-  { name: 'Luya', id: 565138098 },
-  { name: 'Dima Paschenko', id: 197415735 },
-  { name: 'Oleh Martynenko', id: 487178950 },
-  { name: 'gustav', id: 973515559 },
+	{ name: 'Me', id: 570111083 },
+	{ name: 'Luya', id: 565138098 },
+	{ name: 'Dima Paschenko', id: 197415735 },
+	{ name: 'Oleh Martynenko', id: 487178950 },
+	{ name: 'gustav', id: 973515559 },
 ]
 
 export const allowedGroups = [
-  { name: 'Balls Club', id: -1001572208410 },
-  { name: 'Lubiv', id: -1001941423883 },
+	{ name: 'Balls Club', id: -1001572208410 },
+	{ name: 'Lubiv', id: -1001941423883 },
 ]
 
 export const allowedUserIds = allowedUsers.map((user) => user.id)

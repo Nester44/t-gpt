@@ -15,10 +15,9 @@ class GptService {
 			model,
 			temperature: 0.6,
 			// eslint-disable-next-line camelcase
-			max_tokens: 200,
 		})
 		const text = response.choices[0].message.content
-		return text
+		return text.slice(0, 1000)
 	}
 	async generateImage(prompt) {
 		const response = await openai.images.generate({
