@@ -5,7 +5,13 @@ class MessageStorageService {
 		this.messages = { initialMessage }
 		this.contextLimit = process.env.CONTEXT_LIMIT || 10
 	}
-
+	/**
+	 *
+	 * @param {number} id
+	 * @param {string} content
+	 * @param {'assistant' | 'user'} role
+	 * @param {number} replyTo
+	 */
 	addMessage(id, content, role, replyTo = 'initialMessage') {
 		if (Object.keys(this.messages).length > this.contextLimit) {
 			this.messages = { initialMessage }

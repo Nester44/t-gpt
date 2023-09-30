@@ -14,6 +14,7 @@
     "telegraf": "^4.12.2"
   },
   "devDependencies": {
+    "eslint-plugin-jsdoc": "^46.8.2",
     "nodemon": "^2.0.15"
   },
   "scripts": {
