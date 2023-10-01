@@ -12,7 +12,7 @@ class MessageStorageService {
 	 * @param {number} replyTo
 	 */
 	addMessage(id, content, role, replyTo = 'initialMessage') {
-		if (Object.keys(this.messages).length + 1 > this.messagesLimit) {
+		if (Object.keys(this.messages).length >= this.messagesLimit) {
 			console.log('Messages limit exceeded')
 			this.clearMessages()
 		}

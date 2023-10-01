@@ -32,6 +32,16 @@ class GptController {
 		console.log('Mode switched to', mode)
 		ctx.reply('Режим успешно изменен на ' + mode)
 	}
+
+	penzlyk = async (ctx) => {
+		const input = ctx.state.input
+
+		const imageUrl = await this.gptService.generateImage(input)
+		ctx.replyWithPhoto(
+			{ url: imageUrl },
+			{ reply_to_message_id: ctx.message.message_id },
+		)
+	}
 }
 
 export default GptController
