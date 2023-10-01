@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import synthesizeVoice from '../service/textToSpeechService.js'
 
 class GptController {
@@ -16,12 +17,15 @@ class GptController {
 			replyToId,
 		)
 
-		const voice = await synthesizeVoice(response)
+		// Telegram has a limit of 1000 characters per message with voice
+		const slicedResponse = response.slice(0, 1000)
+
+		const voice = await synthesizeVoice(slicedResponse)
 
 		const sentMessage = await ctx.replyWithVoice(voice, {
 			// eslint-disable-next-line camelcase
 			reply_to_message_id: messageId,
-			caption: response,
+			caption: slicedResponse,
 		})
 
 		handleSentMessage(sentMessage.message_id)

@@ -19,10 +19,9 @@ class GptService {
 			messages,
 			model,
 			temperature: 0.6,
-			// eslint-disable-next-line camelcase
 		})
 		const text = response.choices[0].message.content
-		return text.slice(0, 1000)
+		return text
 	}
 
 	query = async (input, messageId, replyToId) => {
