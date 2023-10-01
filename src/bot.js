@@ -3,19 +3,16 @@ import './config.js'
 import { Telegraf } from 'telegraf'
 import { default as penzlyk } from './commands/penzlyk.js'
 import { default as shum } from './commands/shum.js'
-import {
-	commandsDescriptions,
-	isCommandWithArguments,
-} from './constants/commands.js'
+import { commandsDescriptions } from './constants/commands.js'
 import { initialMessages } from './constants/initialMessages.js'
 import GptController from './controller/gptController.js'
 import allowMiddleware from './middleware/allowMiddleware.js'
 import errorHandler from './middleware/errorHandler.js'
-import extractInput from './middleware/extractInputMiddleware.js'
 import loggerMiddleware from './middleware/loggerMiddleware.js'
 import { replyMiddleware } from './middleware/replyMiddleware.js'
 import GptService from './service/gptService.js'
 import MessageStorageService from './service/messageStorage.js'
+import { createCommandRegistrar } from './utils/registerCommand.js'
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_ID)
 
@@ -25,14 +22,7 @@ const gptController = new GptController(gptService)
 
 bot.use(allowMiddleware)
 
-const registerCommand = (commandName, ...middlewares) => {
-	const requireArgs = isCommandWithArguments(commandName)
-	const commandMiddlewares = [loggerMiddleware]
-
-	if (requireArgs) commandMiddlewares.unshift(extractInput)
-
-	bot.command(commandName, ...commandMiddlewares, ...middlewares)
-}
+const registerCommand = createCommandRegistrar(bot)
 
 registerCommand('switch', gptController.switchMode)
 registerCommand('sho', gptController.query)
