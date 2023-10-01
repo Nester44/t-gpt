@@ -5,9 +5,7 @@ const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY,
 })
 
-const defaultModel = 'gpt-3.5-turbo-0613'
-
-const model = process.env.OPENAI_MODEL || defaultModel
+const model = process.env.OPENAI_MODEL || 'gpt-3.5-turbo-0613'
 
 class GptService {
 	constructor(messageStorage) {
