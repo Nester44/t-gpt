@@ -10,6 +10,7 @@ const model = process.env.OPENAI_MODEL || 'gpt-3.5-turbo-0613'
 class GptService {
 	constructor(messageStorage) {
 		this.talksBullshit = false
+		/** @type {import ('../service/messageStorage').default} */
 		this.messageStorage = messageStorage
 	}
 	async createCompletion(messages) {

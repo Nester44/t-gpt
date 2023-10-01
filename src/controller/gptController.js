@@ -3,6 +3,7 @@ import synthesizeVoice from '../service/textToSpeechService.js'
 
 class GptController {
 	constructor(gptService) {
+		/** @type {import('../service/gptService.js').default} */
 		this.gptService = gptService
 	}
 	query = async (ctx) => {

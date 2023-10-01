@@ -1,7 +1,9 @@
 import shum from '../commands/shum.js'
 import container from '../dependencyContainer.js'
 
+/** @type {import('../service/gptService.js').default} */
 const gptController = container.get('gptController')
+
 export const commands = [
 	{
 		command: 'sho',
