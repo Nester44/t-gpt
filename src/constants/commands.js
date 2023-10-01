@@ -11,6 +11,10 @@ const commandDescription = [
 		command: 'penzlyk',
 		description: 'Намалюваті малюнак',
 	},
+	{
+		command: 'switch',
+		description: 'Змініці мод чатгіпуту (брiдятина/норм)',
+	},
 ]
 
 export const commands = commandDescription.map((c) => c.command)
