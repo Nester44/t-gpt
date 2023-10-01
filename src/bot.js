@@ -21,12 +21,17 @@ const gptService = new GptService(messageStorage)
 const gptController = new GptController(gptService)
 
 bot.command(allowMiddleware)
-bot.command(loggerMiddleware)
-bot.command('switch', gptController.switchMode)
-bot.command('sho', extractInput, gptController.query)
-bot.command('shum', shum)
-bot.command('penzlyk', penzlyk)
-bot.on('message', replyMiddleware, gptController.query)
+const logger = loggerMiddleware
+
+function registerCommand(commandName, ...middlewares) {
+	bot.command(commandName, logger, ...middlewares)
+}
+
+registerCommand('switch', gptController.switchMode)
+registerCommand('sho', extractInput, gptController.query)
+registerCommand('shum', shum)
+registerCommand('penzlyk', penzlyk)
+bot.on('message', replyMiddleware, logger, gptController.query)
 
 bot.catch(errorHandler)
 
