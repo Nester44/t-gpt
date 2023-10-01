@@ -3,7 +3,10 @@ import './config.js'
 import { Telegraf } from 'telegraf'
 import { default as penzlyk } from './commands/penzlyk.js'
 import { default as shum } from './commands/shum.js'
-import commandDescription from './constants/commands.js'
+import {
+	commandsDescriptions,
+	isCommandWithArguments,
+} from './constants/commands.js'
 import { initialMessages } from './constants/initialMessages.js'
 import GptController from './controller/gptController.js'
 import allowMiddleware from './middleware/allowMiddleware.js'
@@ -21,20 +24,24 @@ const gptService = new GptService(messageStorage)
 const gptController = new GptController(gptService)
 
 bot.command(allowMiddleware)
-const logger = loggerMiddleware
 
-function registerCommand(commandName, ...middlewares) {
-	bot.command(commandName, logger, ...middlewares)
+const registerCommand = (commandName, ...middlewares) => {
+	const requireArgs = isCommandWithArguments(commandName)
+	const commandMiddlewares = [loggerMiddleware]
+
+	if (requireArgs) commandMiddlewares.unshift(extractInput)
+
+	bot.command(commandName, ...commandMiddlewares, ...middlewares)
 }
 
 registerCommand('switch', gptController.switchMode)
-registerCommand('sho', extractInput, gptController.query)
+registerCommand('sho', gptController.query)
 registerCommand('shum', shum)
 registerCommand('penzlyk', penzlyk)
-bot.on('message', replyMiddleware, logger, gptController.query)
+bot.on('message', replyMiddleware, loggerMiddleware, gptController.query)
 
 bot.catch(errorHandler)
 
-bot.telegram.setMyCommands(commandDescription)
+bot.telegram.setMyCommands(commandsDescriptions)
 
 export default bot
