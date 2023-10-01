@@ -23,7 +23,7 @@ const messageStorage = new MessageStorageService(initialMessages.useful)
 const gptService = new GptService(messageStorage)
 const gptController = new GptController(gptService)
 
-bot.command(allowMiddleware)
+bot.use(allowMiddleware)
 
 const registerCommand = (commandName, ...middlewares) => {
 	const requireArgs = isCommandWithArguments(commandName)
