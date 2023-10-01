@@ -1,5 +1,5 @@
 .env
 /node_modules
 /
-```
 text-to-speech-key.json
+/coverage

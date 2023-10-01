@@ -1,9 +1,8 @@
-import { initialMessage } from '../dialogs/default.js'
-
 class MessageStorageService {
-	constructor() {
-		this.messages = { initialMessage }
-		this.contextLimit = process.env.CONTEXT_LIMIT || 10
+	constructor(initialMessage) {
+		this.messages = {}
+		this.addMessage('initialMessage', initialMessage, 'system', null)
+		this.messagesLimit = process.env.CONTEXT_LIMIT || 10
 	}
 	/**
 	 *
@@ -13,15 +12,17 @@ class MessageStorageService {
 	 * @param {number} replyTo
 	 */
 	addMessage(id, content, role, replyTo = 'initialMessage') {
-		if (Object.keys(this.messages).length > this.contextLimit) {
-			this.messages = { initialMessage }
+		if (Object.keys(this.messages).length + 1 > this.messagesLimit) {
+			console.log('Messages limit exceeded')
+			this.clearMessages()
 		}
+
 		this.messages[id] = { content, role, replyTo }
 	}
 
 	getDialog(id) {
-		const message = this.messages[id]
-		if (!message) return [initialMessage]
+		let message = this.messages[id]
+		if (!message) message = this.messages.initialMessage
 		const { content, role } = message
 		const dialog = [{ content, role }]
 
@@ -31,6 +32,15 @@ class MessageStorageService {
 
 		return dialog
 	}
+
+	clearMessages() {
+		const initialMessage = this.messages.initialMessage
+		this.messages = { initialMessage }
+	}
+
+	changeInitialMessage(content) {
+		this.messages.initialMessage.content = content
+	}
 }
 
-export default new MessageStorageService()
+export default MessageStorageService

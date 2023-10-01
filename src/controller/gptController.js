@@ -1,58 +1,45 @@
 /* eslint-disable camelcase */
-import { Input } from 'telegraf'
-import gptService from '../service/gptService.js'
-import messageStorage from '../service/messageStorage.js'
+import { Context } from 'telegraf'
+
 import synthesizeVoice from '../service/textToSpeechService.js'
 
 class GptController {
-	async query(ctx) {
+	constructor(gptService) {
+		this.gptService = gptService
+	}
+	/**
+	 * @param {Context} ctx
+	 */
+	query = async (ctx) => {
 		const input = ctx.state.input
-		messageStorage.addMessage(ctx.message.message_id, input, 'user')
 
-		const dialog = messageStorage.getDialog(ctx.message.message_id)
-		const response = await gptService.query(dialog)
+		const messageId = ctx.message.message_id
+		const replyToId = ctx.message?.reply_to_message?.message_id
 
-		const buffer = await synthesizeVoice(response)
+		const [response, handleSentMessage] = await this.gptService.query(
+			input,
+			messageId,
+			replyToId,
+		)
 
-		if (!buffer) return
-		const sentMessage = await ctx.replyWithVoice(Input.fromBuffer(buffer), {
-			reply_to_message_id: ctx.message.message_id,
+		const voice = await synthesizeVoice(response)
+
+		const sentMessage = await ctx.replyWithVoice(voice, {
+			reply_to_message_id: messageId,
 			caption: response,
 		})
 
-		messageStorage.addMessage(
-			sentMessage.message_id,
-			response,
-			'assistant',
-			ctx.message.message_id,
-		)
+		handleSentMessage(sentMessage.message_id)
 	}
 
-	async reply(ctx) {
-		const text = ctx.message.text
-
-		const replyToMessageId = ctx.message.reply_to_message.message_id
-		messageStorage.addMessage(
-			ctx.message.message_id,
-			text,
-			'user',
-			replyToMessageId,
-		)
-		const dialog = messageStorage.getDialog(ctx.message.message_id)
-		const response = await gptService.query(dialog)
-		const buffer = await synthesizeVoice(response)
-		if (!buffer) return
-		const sentMessage = await ctx.replyWithVoice(Input.fromBuffer(buffer), {
-			reply_to_message_id: ctx.message.message_id,
-			caption: response,
-		})
-		messageStorage.addMessage(
-			sentMessage.message_id,
-			response,
-			'assistant',
-			ctx.message.message_id,
-		)
+	/**
+	 * @param {Context} ctx
+	 */
+	switchMode = (ctx) => {
+		const mode = this.gptService.switchMode()
+		console.log('Mode switched to', mode)
+		ctx.reply('Режим успешно изменен на ' + mode)
 	}
 }
 
-export default new GptController()
+export default GptController

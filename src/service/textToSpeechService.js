@@ -2,6 +2,7 @@
 // Imports the Google Cloud client library
 import textToSpeech from '@google-cloud/text-to-speech'
 import { franc } from 'franc'
+import { Input } from 'telegraf'
 
 // Creates a client
 const client = new textToSpeech.TextToSpeechClient({
@@ -57,7 +58,8 @@ async function synthesizeVoice(text) {
 
 	// Performs the text-to-speech request
 	const [response] = await client.synthesizeSpeech(request)
-	return response.audioContent
+	const voice = Input.fromBuffer(response.audioContent)
+	return voice
 }
 
 export default synthesizeVoice

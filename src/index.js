@@ -1,3 +1,4 @@
+import { copyFileSync } from 'fs'
 import { createServer } from 'http'
 import bot from './bot.js'
 
@@ -15,4 +16,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
 	bot.launch()
 	console.log('Bot is running on development mode')
+	const botInfo = await bot.telegram.getMe()
+	console.log(`https://${botInfo.username}.t.me`)
 }

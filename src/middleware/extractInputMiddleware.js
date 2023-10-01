@@ -7,11 +7,7 @@ const extractInput = (ctx, next) => {
 
 		if (!commands.includes(command)) return
 
-		if (!input)
-			return ctx.reply('Text is required', {
-				// eslint-disable-next-line camelcase
-				reply_to_message_id: ctx.message.message_id,
-			})
+		if (!input) throw new Error('Напиши текст, трясця')
 
 		ctx.state.input = input
 	}
