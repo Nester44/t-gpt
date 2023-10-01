@@ -1,7 +1,14 @@
+import { CustomError } from '../constants/customError.js'
+
 const errorHandler = (err, ctx) => {
-	console.log(`Ooops, encountered an error for ${ctx.updateType}`, err)
+	let message
+	if (err instanceof CustomError) {
+		message = err.message
+	} else {
+		message = 'Something went wrong'
+		console.log(`Ooops, encountered an error for ${ctx.updateType}`, err)
+	}
 	try {
-		const message = err.message || 'Something went wrong'
 		ctx.reply(message, {
 			// eslint-disable-next-line camelcase
 			reply_to_message_id: ctx.message.message_id,
