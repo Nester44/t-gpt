@@ -1,15 +1,9 @@
-/* eslint-disable camelcase */
-import { Context } from 'telegraf'
-
 import synthesizeVoice from '../service/textToSpeechService.js'
 
 class GptController {
 	constructor(gptService) {
 		this.gptService = gptService
 	}
-	/**
-	 * @param {Context} ctx
-	 */
 	query = async (ctx) => {
 		const input = ctx.state.input
 
@@ -25,6 +19,7 @@ class GptController {
 		const voice = await synthesizeVoice(response)
 
 		const sentMessage = await ctx.replyWithVoice(voice, {
+			// eslint-disable-next-line camelcase
 			reply_to_message_id: messageId,
 			caption: response,
 		})
@@ -32,9 +27,6 @@ class GptController {
 		handleSentMessage(sentMessage.message_id)
 	}
 
-	/**
-	 * @param {Context} ctx
-	 */
 	switchMode = (ctx) => {
 		const mode = this.gptService.switchMode()
 		console.log('Mode switched to', mode)
