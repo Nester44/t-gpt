@@ -19,7 +19,7 @@ class GptController {
     )
 
     const sentMessage = await ctx.reply(response, {
-      reply_to_message_id: replyToId,
+      reply_to_message_id: messageId,
     })
 
     handleSentMessage(sentMessage.message_id)
